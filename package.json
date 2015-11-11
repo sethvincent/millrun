@@ -9,9 +9,9 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build:osx": "electron-packager . millrun --out=dist/osx --platform=darwin --arch=x64 --version=0.34.2 --icon=assets/millrun.icns --app-version=\"1.0.0\" ",
+    "build:osx": "electron-packager . millrun --out=dist/osx --platform=darwin --arch=x64 --version=0.34.3 --icon=assets/millrun.icns --app-version=\"1.0.0\" ",
     "build": "npm run clean && npm run build:osx",
-    "postinstall-tmp": "cd node_modules/leveldown && HOME=~/.electron-gyp node-gyp rebuild --target=0.34.2 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
+    "postinstall-tmp": "cd node_modules/leveldown && HOME=~/.electron-gyp node-gyp rebuild --target=0.34.3 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
     "bundle-css": "cssnext assets/style.css > assets/bundle.css",
     "bundle": "npm run bundle-css",
     "watch-css": "cssnext --watch assets/style.css assets/bundle.css",
