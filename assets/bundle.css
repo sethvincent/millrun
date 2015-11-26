@@ -916,7 +916,7 @@ h1, h2, h3, h4, h5, h6 {
 #app {
   margin: 0px auto;
   padding: 50px 0px 50px 0px;
-  width: 500px;
+  width: 650px;
   height: 100%;
   overflow: hidden;
 }
@@ -961,6 +961,13 @@ span.info.button:hover {
   overflow: auto;
 }
 
+.draft-list-item {
+  background-color: #fff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
 h2.draft-title {
   cursor: pointer;
+  margin-top: 0px;
 }

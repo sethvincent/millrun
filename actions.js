@@ -5,16 +5,17 @@
   var formatDraft = require('./format-draft')
 
   module.exports = function createActions (editor) {
+    editor = editor || {}
     var actions = {}
 
     actions.unsetDraft = function () {
-      store.dispatch({ type: 'unset_draft' })
+      store({ type: 'draft:unset' })
       editor.setValue('')
     }
 
     actions.setDraft = function (draft) {
       actions.setScreen('draft')
-      store.dispatch({ type: 'set_draft', draft: draft })
+      store({ type: 'draft:set', draft: draft })
       editor.containerEl.className = 'editor-wrapper'
       editor.setValue(draft.markdown)
       setTimeout(function () {
@@ -27,7 +28,7 @@
       var data = { key: cuid(), word_count: 0, character_count: 0, line_count: 0 }
       drafts.create(data, function (err, draft) {
         if (err) return actions.error(err)
-        store.dispatch({ type: 'create_draft', draft: draft })
+        store({ type: 'draft:create', draft: draft })
         actions.setScreen('draft')
         editor.containerEl.className = 'editor-wrapper'
         editor.setValue('')
@@ -40,7 +41,7 @@
 
     actions.updateDraft = function () {
       var draft = formatDraft(editor)
-      store.dispatch({ type: 'set_draft', draft: draft })
+      store({ type: 'draft:set', draft: draft })
     }
 
     actions.saveDraft = function (data) {
@@ -50,8 +51,19 @@
       })
     }
 
+    actions.destroyDraft = function (key) {
+      if (typeof key === 'object') {
+        key = key.key
+      }
+
+      drafts.del(key, function (err) {
+        if (err) return actions.error(err)
+        actions.getDraftList()
+      })
+    }
+
     actions.getDraftList = function () {
-      editor.containerEl.className = 'editor-wrapper hidden'
+      if (editor.containerEl) editor.containerEl.className = 'editor-wrapper hidden'
       actions.setScreen('draft_list')
       actions.unsetDraft()
 
@@ -61,16 +73,16 @@
           list.push(data)
         })
         .on('end', function () {
-          store.dispatch({ type: 'get_draft_list', drafts: list })
+          store({ type: 'draft:list', drafts: list })
         })
     }
 
     actions.setScreen = function (screen) {
-      store.dispatch({ type: 'set_screen', screen: screen })
+      store({ type: 'screen:set', screen: screen })
     }
 
     actions.error = function actions_error (error) {
-      store.dispatch({ type: 'error', error: error })
+      store({ type: 'error', error: error })
     }
 
     return actions

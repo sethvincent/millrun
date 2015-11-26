@@ -15,7 +15,8 @@ function Drafts (db, options) {
       markdown: { type: 'string' },
       word_count: { type: 'number' },
       character_count: { type: 'number' },
-      line_count: { type: 'number' }
+      line_count: { type: 'number' },
+      category: { type: 'string' }
     }
   }, options)
   Model.call(this, db, options)

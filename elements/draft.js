@@ -1,7 +1,7 @@
 var h = require('virtual-dom/h')
 
-module.exports = function (state, options) {
+module.exports = function (state, actions) {
   return h('div.draft', [
-    require('./toolbar')(state, options)
+    require('./toolbar')(state, actions)
   ])
 }

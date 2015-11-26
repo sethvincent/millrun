@@ -14,12 +14,7 @@ editor.on('change', function () {
   actions.updateDraft()
 })
 
-var actions = require('./actions')(editor)
-var tree = loop(store.getState(), render, require('virtual-dom'))
-document.getElementById('app').appendChild(tree())
-
-store.subscribe(function () {
-  var state = store.getState()
+store.on('*', function (action, state) {
   tree.update(state)
   if (state.draft && state.draft.key) {
     drafts.save(state.draft, function (err, updated) {
@@ -28,21 +23,13 @@ store.subscribe(function () {
   }
 })
 
+var actions = require('./actions')(editor)
+var tree = loop(store.initialState(), render, require('virtual-dom'))
+document.getElementById('app').appendChild(tree())
+
 function render (state) {
-  var options = {}
-  options.onclick = router
   var screen = screens[state.screen]
-  return screen(state, options)
+  return screen(state, actions)
 }
 
-function router (screen, draft) {
-  if (screen === 'new_draft') {
-    actions.createDraft()
-  } else if (screen === 'draft_list') {
-    actions.getDraftList()
-  } else if (screen === 'draft') {
-    actions.setDraft(draft)
-  }
-}
-
-router('draft_list')
+actions.getDraftList()
