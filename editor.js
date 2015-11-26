@@ -14,11 +14,13 @@ module.exports = function createEditor (options) {
   editorContainer.appendChild(el)
 
   var editor = codemirror.fromTextArea(el, {
-    mode: 'gfm',
     theme: 'millrun',
+    mode: 'gfm',
+    autofocus: true,
     lineNumbers: false,
+    matchBrackets: true,
     lineWrapping: true,
-    autofocus: true
+    extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
   })
 
   editor.containerEl = editorContainer
