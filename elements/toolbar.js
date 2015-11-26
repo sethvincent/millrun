@@ -20,5 +20,9 @@ module.exports = function (state, actions) {
     onclick: function () { actions.getDraftList() }
   }, [h('i.fa.fa-list'), ' draft list']))
 
+  elements.push(h('span.draft-list.button.info', {
+    onclick: function () { console.log('show dashboard') }
+  }, [h('i.fa.fa-dashboard'), ' dashboard']))
+
   return h('.toolbar', elements)
 }

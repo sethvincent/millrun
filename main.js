@@ -14,7 +14,9 @@ app.on('ready', function () {
     title: 'millrun',
     'title-bar-style': 'hidden',
     width: 1200,
-    height: 800
+    height: 800,
+    minWidth: 700,
+    minHeight: 300
   })
 
   win.loadUrl('file://' + __dirname + '/index.html')

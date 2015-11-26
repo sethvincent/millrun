@@ -1,4 +1,6 @@
 @import "basscss";
+@import "./codemirror.css";
+@import "./millrun-editor.css";
 
 * {
   box-sizing: border-box;
@@ -65,9 +67,13 @@ span.info.button:hover {
 }
 
 .draft-list-item {
-  background-color: #fff;
-  padding: 10px 15px;
-  margin-bottom: 10px;
+  padding-left: 15px;
+  border-left: 5px solid #fff;
+  margin-bottom: 30px;
+}
+
+.draft-list-item:hover {
+  border-left: 5px solid #D68573;
 }
 
 h2.draft-title {
