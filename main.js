@@ -3,14 +3,12 @@ var Menu = require('menu')
 var BrowserWindow = require('browser-window')
 require('electron-debug')()
 
-var win
-
 app.on('window-all-closed', function () {
   app.quit()
 })
 
 app.on('ready', function () {
-  win = new BrowserWindow({
+  var win = new BrowserWindow({
     title: 'millrun',
     'title-bar-style': 'hidden',
     width: 1200,
@@ -19,7 +17,7 @@ app.on('ready', function () {
     minHeight: 300
   })
 
-  win.loadUrl('file://' + __dirname + '/index.html')
+  win.loadURL('file://' + __dirname + '/index.html')
 
   win.on('closed', function () {
     win = null

@@ -20,7 +20,7 @@ module.exports = function createEditor (options) {
     lineNumbers: false,
     matchBrackets: true,
     lineWrapping: true,
-    extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+    extraKeys: { 'Enter': 'newlineAndIndentContinueMarkdownList' }
   })
 
   editor.containerEl = editorContainer

@@ -2,8 +2,15 @@ var h = require('virtual-dom/h')
 
 module.exports = function (state, actions) {
   var list = []
+  var drafts
 
-  state.drafts.forEach(function (draft) {
+  if (state.filter) {
+    drafts = state.filteredDrafts
+  } else {
+    drafts = state.drafts
+  }
+
+  drafts.forEach(function (draft) {
     list.push(h('.draft-list-item', [
       h('h2.draft-title', {
         onclick: function (e) {
@@ -11,7 +18,7 @@ module.exports = function (state, actions) {
         }
       }, draft.title),
       h('.draft-list-actions', [
-        h('button.delete-draft', {
+        h('button.button.delete-draft', {
           onclick: function (e) {
             actions.destroyDraft(draft)
           }

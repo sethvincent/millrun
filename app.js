@@ -1,35 +1,51 @@
-var loop = require('virtual-raf')
+var createApp = require('virtual-app')
+var vdom = require('virtual-dom')
+var h = require('virtual-dom/h')
 
 var db = require('./db')
 var drafts = require('./drafts')(db)
-var store = require('./store')
 var editor = require('./editor')()
+var modifier = require('./modifier')
+var draftSettings = require('./elements/draft-settings')
 
 var screens = {
   draft: require('./elements/draft'),
-  draft_list: require('./elements/list')
+  draft_list: require('./elements/list'),
+  dashboard: require('./elements/dashboard')
 }
 
 editor.on('change', function () {
   actions.updateDraft()
 })
 
-store.on('*', function (action, state) {
-  tree.update(state)
+var app = createApp(document.getElementById('app'), vdom)
+var actions = require('./actions')(app, editor)
+
+var render = app.start(modifier, {
+  screen: 'draft_list',
+  draft: { word_count: 0, character_count: 0, line_count: 0 },
+  drafts: [],
+  filteredDrafts: [],
+  filter: '',
+  popup: ''
+})
+
+render(function (state) {
+  var elements = [screens[state.screen](state, actions)]
+
+  if (state.popup === 'draft-settings') {
+    elements.push(draftSettings(state, actions))
+  }
+
+  return h('div', { style: { height: '100%' } }, elements)
+})
+
+app.on('*', function (action, state) {
   if (state.draft && state.draft.key) {
     drafts.save(state.draft, function (err, updated) {
       if (err) return actions.error(err)
     })
   }
 })
-
-var actions = require('./actions')(editor)
-var tree = loop(store.initialState(), render, require('virtual-dom'))
-document.getElementById('app').appendChild(tree())
-
-function render (state) {
-  var screen = screens[state.screen]
-  return screen(state, actions)
-}
 
 actions.getDraftList()
