@@ -1,7 +1,7 @@
 {
   "name": "millrun",
   "productName": "millrun",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "a writing app for your lumps",
   "main": "main.js",
   "bin": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build:osx": "electron-packager . millrun --out=dist/osx --platform=darwin --arch=x64 --version=0.35.1 --icon=assets/millrun.icns --app-version=\"1.0.0\" ",
+    "build:osx": "electron-packager . millrun --out=dist/osx --platform=darwin --arch=x64 --version=0.35.1 --icon=assets/millrun.icns --app-version=\"1.1.0\" ",
     "build": "npm run clean && npm run build:osx",
     "postinstall-tmp": "cd node_modules/leveldown && HOME=~/.electron-gyp node-gyp rebuild --target=0.35.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
     "bundle-css": "cssnext assets/style.css > assets/bundle.css",
@@ -30,7 +30,8 @@
   "homepage": "https://github.com/civicmakerlab/millrun#readme",
   "devDependencies": {
     "cssnext": "^1.8.4",
-    "debug": "^2.2.0"
+    "debug": "^2.2.0",
+    "electron-packager": "^5.2.0"
   },
   "dependencies": {
     "basscss": "^7.0.4",
