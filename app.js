@@ -18,7 +18,7 @@ editor.on('change', function () {
   actions.updateDraft()
 })
 
-var app = createApp(document.getElementById('app'), vdom)
+var app = createApp(vdom)
 var actions = require('./actions')(app, editor)
 
 var render = app.start(modifier, {
@@ -30,7 +30,7 @@ var render = app.start(modifier, {
   popup: ''
 })
 
-render(function (state) {
+var tree = render(function (state) {
   var elements = [screens[state.screen](state, actions)]
 
   if (state.popup === 'draft-settings') {
@@ -39,6 +39,8 @@ render(function (state) {
 
   return h('div', { style: { height: '100%' } }, elements)
 })
+
+document.getElementById('app').appendChild(tree)
 
 app.on('*', function (action, state) {
   if (state.draft && state.draft.key) {
