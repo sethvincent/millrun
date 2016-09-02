@@ -1,7 +1,6 @@
 var html = require('yo-yo')
 var css = require('sheetify')
 var createEditor = require('millrun-editor')
-var debounce = require('lodash.debounce')
 
 module.exports = function renderDraft (state, prev, send) {
   var editor = createEditor()
@@ -21,8 +20,9 @@ module.exports = function renderDraft (state, prev, send) {
 
   var key = state.params.draftkey
   var draft = state.drafts.list[key]
-  var prevDraft = prev.drafts && prev.drafts.list && prev.drafts.list[key] ? prev.drafts.list[key] : {}
   if (!draft) return html`<p></p>`
+  var prevDraft = prev.drafts && prev.drafts.list && prev.drafts.list[key]
+    ? prev.drafts.list[key] : {}
 
   var editorParams = {
     key: key,
