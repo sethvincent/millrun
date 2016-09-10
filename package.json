@@ -20,6 +20,7 @@
   "dependencies": {
     "choo": "^3.2.0",
     "cuid": "^1.3.8",
-    "level-browserify": "^1.1.0"
+    "level-browserify": "^1.1.0",
+    "tachyons": "^4.3.1"
   }
 }

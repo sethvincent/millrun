@@ -5,7 +5,7 @@ module.exports = {
   state: {},
   effects: {
     navigate: function (data, state, send, done) {
-      assert.ok(data || typeof data === 'string', 'data is required and must be a string')
+      assert.ok(data || typeof data === 'string', 'pathname is required and must be a string')
       window.history.pushState({}, null, data)
       send('location:setLocation', { location: data }, done)
     }

@@ -3,6 +3,7 @@ var css = require('sheetify')
 var level = require('level-browserify')
 var db = level('millrun', { valueEncoding: 'json '})
 
+css('tachyons')
 css('./style.css', { global: true })
 
 var app = choo({

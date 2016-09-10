@@ -14,7 +14,7 @@ module.exports = function renderDraft (state, prev, send) {
 
     .editor-wrapper {
       max-width: 600px;
-      margin: 0px auto;
+      margin: 50px auto;
     }
   `
 
@@ -39,8 +39,10 @@ module.exports = function renderDraft (state, prev, send) {
   }
 
   return html`<div class="${prefix} draft">
-    <a href="/">list</a>
-    <button onclick=${onclick}>delete</button>
+    <div class="container">
+      <a href="/" class="button">list</a>
+      <button class="button-red" onclick=${onclick}>delete</button>
+    </div>
     ${editorEl}
   </div>`
 }

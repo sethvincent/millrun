@@ -8,9 +8,22 @@ module.exports = function createList() {
 
     var prefix = css`
       :host {
-        width: 90%;
+        width: 100%;
         max-width: 600px;
-        margin: 50px auto 0px auto;
+        margin: 0px auto;
+        padding: 20px 0px;
+      }
+
+      .link {
+        background-color: #fff;
+        width: 100%;
+        color: #333;
+      }
+
+      .link:hover {
+        color: #000;
+        background-color: rgba(23, 200, 255, 0.05);
+        cursor: pointer;
       }
     `
 
@@ -18,16 +31,16 @@ module.exports = function createList() {
       send('drafts:create')
     }
 
-    return html`<div class="${prefix} list">
+    return html`<div class="${prefix}">
       <button onclick=${newDraft}>new draft</button>
-      <div class="drafts-list">
+      <ul class="list pl0 drafts-list bb b--light-gray">
         ${keys.map(function item (key) {
           var draft = drafts[key]
-          return html`<div class="draft">
-            <a href="/edit/${key}">${draft.title}</a>
-          </div>`
+          return html`<li class="draft db">
+            <a class="link pa3 bt br bl db b--light-gray" href="/edit/${key}">${draft.title}</a>
+          </li>`
         })}
-      </div>
+      </ul>
     </div>`
   }
 }
